@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/pages/onboarding5_screen.dart';
+
 /// Écran de connexion pour l'Onboarding 4
 class Onboarding4Screen extends StatelessWidget {
-  const Onboarding4Screen({Key? key}) : super(key: key);
+  const Onboarding4Screen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -110,6 +112,10 @@ class Onboarding4SignInButton extends StatelessWidget {
       width: double.infinity,
       child: ElevatedButton(
         onPressed: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => const Onboarding5Screen ()),
+          );
           // TODO: Ajoutez ici la logique de connexion
         },
         style: ElevatedButton.styleFrom(
