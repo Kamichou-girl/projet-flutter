@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/pages/home_screen.dart';
+import 'package:flutter_application_1/pages/onboarding5_screen.dart';
+
 /// Écran de connexion pour l'Onboarding 4
 class Onboarding4Screen extends StatelessWidget {
   const Onboarding4Screen({super.key});
@@ -111,7 +113,11 @@ class Onboarding4SignInButton extends StatelessWidget {
       width: double.infinity,
       child: ElevatedButton(
         onPressed: () {
-          // TODO: Ajoutez ici la logique de connexion
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => const Onboarding5Screen ()),
+          );
+          // 
         },
         style: ElevatedButton.styleFrom(
           backgroundColor: const Color(0xFF0D6CFF), // Couleur bleue du bouton

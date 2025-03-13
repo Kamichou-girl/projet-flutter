@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
 class SpendingLimitSlider extends StatefulWidget {
+  const SpendingLimitSlider({super.key});
+
   @override
   _SpendingLimitSliderState createState() => _SpendingLimitSliderState();
 }

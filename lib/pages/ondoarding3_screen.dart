@@ -100,7 +100,7 @@ class NextButton extends StatelessWidget {
             context,
             MaterialPageRoute(builder: (context) => const Onboarding4Screen()),
           );
-          // TODO: Ajoutez ici la navigation ou l'action souhaitée
+          // 
         },
         style: ElevatedButton.styleFrom(
           backgroundColor: const Color(0xFF0D6CFF), // Couleur bleue du bouton

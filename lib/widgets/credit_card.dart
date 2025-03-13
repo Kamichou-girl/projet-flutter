@@ -8,13 +8,13 @@ class CreditCardWidget extends StatelessWidget {
   final String logoAsset;
 
   const CreditCardWidget({
-    Key? key,
+    super.key,
     required this.cardNumber,
     required this.cardHolder,
     required this.expiry,
     required this.cvv,
     required this.logoAsset,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
