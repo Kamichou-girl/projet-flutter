@@ -3,7 +3,7 @@ import 'package:flutter_application_1/pages/ondoarding3_screen.dart';
 
 /// Écran principal qui assemble toutes les sections
 class Onboarding2Screen extends StatelessWidget {
-  const Onboarding2Screen({Key? key}) : super(key: key);
+  const Onboarding2Screen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -39,7 +39,7 @@ class Onboarding2Screen extends StatelessWidget {
 
 /// Widget qui affiche l’illustration
 class PaymentIllustration extends StatelessWidget {
-  const PaymentIllustration({Key? key}) : super(key: key);
+  const PaymentIllustration({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -54,7 +54,7 @@ class PaymentIllustration extends StatelessWidget {
 
 /// Widget pour le titre principal
 class TitleText extends StatelessWidget {
-  const TitleText({Key? key}) : super(key: key);
+  const TitleText({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -72,7 +72,7 @@ class TitleText extends StatelessWidget {
 
 /// Widget pour le sous-titre
 class SubtitleText extends StatelessWidget {
-  const SubtitleText({Key? key}) : super(key: key);
+  const SubtitleText({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -86,7 +86,7 @@ class SubtitleText extends StatelessWidget {
 
 /// Widget pour le bouton "Next"
 class NextButton extends StatelessWidget {
-  const NextButton({Key? key}) : super(key: key);
+  const NextButton({super.key});
 
   @override
   Widget build(BuildContext context) {
