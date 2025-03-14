@@ -4,7 +4,7 @@ import 'package:flutter_application_1/pages/onboarding_sreen.dart';
 
 import 'pages/home_screen.dart';
 import 'pages/my_cards_screen.dart';
-import 'pages/profile_screen.dart';
+import 'pages/K_profile_screen.dart';
 import 'pages/setting_screen.dart';
 import 'pages/statistics_screen.dart';
 
@@ -24,10 +24,9 @@ class MyApp extends StatelessWidget {
       routes: {
         '/welcom': (context) => HomeScreen(),
         '/statistics': (context) => StatisticsScreen(),
-        // Ajoute ici d'autres pages comme '/mycards' ou '/settings' si nécessaire
         '/mycards': (context) => MyCardsScreen(),
         '/settings': (context) => SettingsScreen(),
-        '/profile': (context) => ProfileScreen(),
+        '/profile': (context) => ProfileEditApp(),
       },
     );
   }

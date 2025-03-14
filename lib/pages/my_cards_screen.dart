@@ -3,6 +3,7 @@ import '../widgets/credit_card.dart';
 import '../widgets/spending_limit_slider.dart';
 import '../widgets/transaction_list.dart';
 import '../widgets/bottom_nav_bar.dart';
+import 'K_add_card.dart';
 
 class MyCardsScreen extends StatelessWidget {
   const MyCardsScreen({super.key});
@@ -23,7 +24,10 @@ class MyCardsScreen extends StatelessWidget {
           IconButton(
             icon: Icon(Icons.add, color: Colors.black),
             onPressed: () {
-              // Action pour ajouter une nouvelle carte
+              Navigator.push(
+  context,
+  MaterialPageRoute(builder: (context) => AddCardScreen()),
+);
             },
           ),
         ],

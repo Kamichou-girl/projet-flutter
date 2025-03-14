@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import '../widgets/bottom_nav_bar.dart';
 import '../widgets/transaction_list.dart'; // Réutilisation du widget
 import '../widgets/statistics_chart.dart'; // À créer
+import 'K_stat_debts.dart';
 
 class StatisticsScreen extends StatelessWidget {
   const StatisticsScreen({super.key});
@@ -47,7 +48,12 @@ class StatisticsScreen extends StatelessWidget {
               children: [
                 Text("Transaction", style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
                 TextButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.push(
+  context,
+  MaterialPageRoute(builder: (context) => TransactionPage()),
+);
+                  },
                   child: Text("Sell All", style: TextStyle(color: Colors.blue)),
                 ),
               ],

@@ -8,9 +8,10 @@ class BottomNavBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BottomNavigationBar(
+       backgroundColor: Colors.white, // NavBar blanche
+        selectedItemColor: Colors.black,
+        unselectedItemColor: Colors.grey,
       currentIndex: selectedIndex,
-      selectedItemColor: const Color.fromARGB(255, 28, 56, 80),
-      unselectedItemColor: Colors.grey,
       onTap: (index) {
         if (index == selectedIndex) return; // Évite de recharger la même page
         
@@ -30,10 +31,10 @@ class BottomNavBar extends StatelessWidget {
         }
       },
       items: const [
-        BottomNavigationBarItem(icon: Icon(Icons.home_rounded), label: "Home"),
+        BottomNavigationBarItem(icon: Icon(Icons.home_outlined), label: "Home"),
         BottomNavigationBarItem(icon: Icon(Icons.credit_card_outlined), label: "My Cards"),
-        BottomNavigationBarItem(icon: Icon(Icons.bar_chart), label: "Statistics"),
-        BottomNavigationBarItem(icon: Icon(Icons.settings), label: "Settings"),
+        BottomNavigationBarItem(icon: Icon(Icons.pie_chart_outline), label: "Statistics"),
+        BottomNavigationBarItem(icon: Icon(Icons.settings_outlined), label: "Settings"),
       ],
     );
   }

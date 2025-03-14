@@ -3,6 +3,7 @@ import '../widgets/credit_card.dart';
 import '../widgets/action_buttons.dart';
 import '../widgets/transaction_list.dart';
 import '../widgets/bottom_nav_bar.dart';
+import 'K_search_debts.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -25,7 +26,12 @@ class HomeScreen extends StatelessWidget {
         actions: [
           IconButton(
             icon: Icon(Icons.search, color: Colors.black),
-            onPressed: () {},
+            onPressed: () {
+              Navigator.push(
+  context,
+  MaterialPageRoute(builder: (context) => SearchScreen()),
+);
+            },
           ),
         ],
       ),
