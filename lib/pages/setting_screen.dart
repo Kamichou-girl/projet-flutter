@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../widgets/bottom_nav_bar.dart';
 import 'home_screen.dart';
+import 'profile_screen.dart';
 
 class SettingsScreen extends StatelessWidget {
   const SettingsScreen({super.key});
@@ -37,7 +38,10 @@ class SettingsScreen extends StatelessWidget {
             Text("General", style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Colors.grey)),
             _buildSettingsOption("Language", "English"),
             _buildSettingsOption("My Profile", "", onTap: () {
-  Navigator.pushNamed(context, '/profile');
+  Navigator.push(
+    context,
+    MaterialPageRoute(builder: (context) => ProfileScreen()),
+  );
 }),
             _buildSettingsOption("Contact Us", ""),
             SizedBox(height: 20),

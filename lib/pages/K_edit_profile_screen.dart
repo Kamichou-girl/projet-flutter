@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart'; // Importation de la bibliothèque Google Fonts pour personnaliser les polices
-import 'setting_screen.dart';
+import 'profile_screen.dart';
 
 // Classe principale pour l'édition du profil
 class ProfileEditApp extends StatelessWidget {
@@ -104,7 +104,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
             onPressed: () {
               Navigator.push(
   context,
-  MaterialPageRoute(builder: (context) => SettingsScreen()),
+  MaterialPageRoute(builder: (context) => ProfileScreen()),
 );
             },
           ),

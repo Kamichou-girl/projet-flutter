@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import '../pages/setting_screen.dart';
+import '../pages/statistics_screen.dart';
+import '../pages/my_cards_screen.dart';
+import '../pages/home_screen.dart';
 
 class BottomNavBar extends StatelessWidget {
   final int selectedIndex;
@@ -8,25 +12,29 @@ class BottomNavBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BottomNavigationBar(
-       backgroundColor: Colors.white, // NavBar blanche
+       backgroundColor: Colors.white, 
         selectedItemColor: Colors.black,
         unselectedItemColor: Colors.grey,
       currentIndex: selectedIndex,
       onTap: (index) {
-        if (index == selectedIndex) return; // Évite de recharger la même page
+        if (index == selectedIndex) return;
         
         switch (index) {
           case 0:
-            Navigator.pushReplacementNamed(context, '/welcom');
+            Navigator.pushReplacement(
+      context, MaterialPageRoute(builder: (context) => HomeScreen()));
             break;
           case 1:
-            Navigator.pushReplacementNamed(context, '/mycards');
+            Navigator.pushReplacement(
+      context, MaterialPageRoute(builder: (context) => MyCardsScreen()));
             break;
           case 2:
-            Navigator.pushReplacementNamed(context, '/statistics');
+            Navigator.pushReplacement(
+      context, MaterialPageRoute(builder: (context) => StatisticsScreen()));
             break;
           case 3:
-            Navigator.pushReplacementNamed(context, '/settings');// Ajoute ici la navigation vers la page "Settings" si elle existe
+            Navigator.pushReplacement(
+      context, MaterialPageRoute(builder: (context) => SettingsScreen()));
             break;
         }
       },

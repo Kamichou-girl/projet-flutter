@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'K_edit_profile_screen.dart';
+import 'setting_screen.dart';
 
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({super.key});
@@ -13,7 +14,11 @@ class ProfileScreen extends StatelessWidget {
         elevation: 0,
         leading: IconButton(
           icon: Icon(Icons.arrow_back, color: Colors.black),
-          onPressed: () => Navigator.pushReplacementNamed(context, '/welcom'),
+          onPressed: () => Navigator.push(
+  context,
+  MaterialPageRoute(builder: (context) => SettingsScreen()),
+),
+
         ),
         title: Text("Profile", style: TextStyle(color: Colors.black, fontSize: 18, fontWeight: FontWeight.bold)),
         actions: [
@@ -38,7 +43,7 @@ class ProfileScreen extends StatelessWidget {
                 children: [
                   CircleAvatar(
                     radius: 40,
-                    backgroundImage: AssetImage('assets/toji.png'), // Remplace par ton image
+                    backgroundImage: AssetImage('../assets/toji.png'), // Remplace par ton image
                   ),
                   SizedBox(height: 10),
                   Text("Tanya Myroniuk", style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
