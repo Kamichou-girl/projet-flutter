@@ -3,8 +3,30 @@ import 'package:flutter_application_1/pages/home_screen.dart';
 import 'package:flutter_application_1/pages/onboarding5_screen.dart';
 
 /// Écran de connexion pour l'Onboarding 4
-class Onboarding4Screen extends StatelessWidget {
+class Onboarding4Screen extends StatefulWidget {
   const Onboarding4Screen({super.key});
+
+  @override
+  _Onboarding4ScreenState createState() => _Onboarding4ScreenState();
+}
+
+class _Onboarding4ScreenState extends State<Onboarding4Screen> {
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
+  String _errorMessage = ''; // Message d'erreur affiché en cas de mauvais identifiants
+
+  void _handleSignIn() {
+    if (_emailController.text == "admin" && _passwordController.text == "admin") {
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (context) => const HomeScreen()),
+      );
+    } else {
+      setState(() {
+        _errorMessage = "Invalid email or password!";
+      });
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -15,25 +37,33 @@ class Onboarding4Screen extends StatelessWidget {
           padding: const EdgeInsets.symmetric(horizontal: 24.0),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
-            children: const [
-              // Titre de l'écran de connexion
-              Onboarding4Title(),
-              SizedBox(height: 40),
+            children: [
+              // Titre
+              const Onboarding4Title(),
+              const SizedBox(height: 40),
 
-              // Champ de saisie de l'email
-              Onboarding4EmailInput(),
-              SizedBox(height: 20),
+              // Email Input
+              Onboarding4EmailInput(controller: _emailController),
+              const SizedBox(height: 20),
 
-              // Champ de saisie du mot de passe
-              Onboarding4PasswordInput(),
-              SizedBox(height: 40),
+              // Password Input
+              Onboarding4PasswordInput(controller: _passwordController),
+              const SizedBox(height: 10),
+
+              // Message d'erreur
+              if (_errorMessage.isNotEmpty)
+                Text(
+                  _errorMessage,
+                  style: const TextStyle(color: Colors.red, fontSize: 14),
+                ),
+              const SizedBox(height: 30),
 
               // Bouton de connexion
-              Onboarding4SignInButton(),
-              SizedBox(height: 20),
+              Onboarding4SignInButton(onPressed: _handleSignIn),
+              const SizedBox(height: 20),
 
               // Lien pour les nouveaux utilisateurs
-              Onboarding4NewUserLink(),
+              const Onboarding4NewUserLink(),
             ],
           ),
         ),
@@ -42,7 +72,7 @@ class Onboarding4Screen extends StatelessWidget {
   }
 }
 
-/// Widget pour le titre de l'écran de connexion
+/// Widget pour le titre
 class Onboarding4Title extends StatelessWidget {
   const Onboarding4Title({super.key});
 
@@ -60,15 +90,15 @@ class Onboarding4Title extends StatelessWidget {
   }
 }
 
-/// Widget pour le champ de saisie de l'email
+/// Widget pour le champ email avec un contrôleur
 class Onboarding4EmailInput extends StatelessWidget {
-  const Onboarding4EmailInput({
-    super.key,
-  });
+  final TextEditingController controller;
+  const Onboarding4EmailInput({super.key, required this.controller});
 
   @override
   Widget build(BuildContext context) {
     return TextField(
+      controller: controller,
       decoration: InputDecoration(
         labelText: 'Email Address',
         labelStyle: const TextStyle(color: Colors.white70),
@@ -83,15 +113,15 @@ class Onboarding4EmailInput extends StatelessWidget {
   }
 }
 
-/// Widget pour le champ de saisie du mot de passe
+/// Widget pour le champ mot de passe avec un contrôleur
 class Onboarding4PasswordInput extends StatelessWidget {
-  const Onboarding4PasswordInput({
-    super.key,
-  });
+  final TextEditingController controller;
+  const Onboarding4PasswordInput({super.key, required this.controller});
 
   @override
   Widget build(BuildContext context) {
     return TextField(
+      controller: controller,
       obscureText: true,
       decoration: InputDecoration(
         labelText: 'Password',
@@ -109,24 +139,17 @@ class Onboarding4PasswordInput extends StatelessWidget {
 
 /// Widget pour le bouton de connexion
 class Onboarding4SignInButton extends StatelessWidget {
-  const Onboarding4SignInButton({
-    super.key,
-  });
+  final VoidCallback onPressed;
+  const Onboarding4SignInButton({super.key, required this.onPressed});
 
   @override
   Widget build(BuildContext context) {
     return SizedBox(
       width: double.infinity,
       child: ElevatedButton(
-        onPressed: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) => const HomeScreen()),
-          );
-          //
-        },
+        onPressed: onPressed,
         style: ElevatedButton.styleFrom(
-          backgroundColor: const Color(0xFF0D6CFF), // Couleur bleue du bouton
+          backgroundColor: const Color(0xFF0D6CFF),
           padding: const EdgeInsets.symmetric(vertical: 16.0),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(8.0),
@@ -143,9 +166,7 @@ class Onboarding4SignInButton extends StatelessWidget {
 
 /// Widget pour le lien des nouveaux utilisateurs
 class Onboarding4NewUserLink extends StatelessWidget {
-  const Onboarding4NewUserLink({
-    super.key,
-  });
+  const Onboarding4NewUserLink({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -157,7 +178,7 @@ class Onboarding4NewUserLink extends StatelessWidget {
         );
       },
       child: const Text(
-        "I'm a new user. Sign In",
+        "I'm a new user. Sign Up",
         style: TextStyle(color: Colors.white70),
       ),
     );

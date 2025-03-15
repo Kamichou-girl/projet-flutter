@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/pages/change_password.dart';
 import 'package:flutter_application_1/pages/langue.dart'; // Chemin vers LanguageSelectionScreen
+import 'package:flutter_application_1/pages/onboarding4_screen.dart';
 import '../widgets/bottom_nav_bar.dart';
 import 'home_screen.dart';
 import 'profile_screen.dart';
-import '../widgets/popup.dart';  // Importez le fichier popup.dart
+import '../widgets/popup.dart'; // Importez le fichier popup.dart
+// Assurez-vous que SignUpScreen est bien importé
 
 class SettingsScreen extends StatefulWidget {
   const SettingsScreen({super.key});
@@ -24,7 +26,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
         backgroundColor: Colors.white,
         elevation: 0,
         leading: IconButton(
-          // Retour vers HomeScreen, selon ton code de base
+          // Retour vers HomeScreen
           icon: const Icon(Icons.arrow_back, color: Colors.black),
           onPressed: () {
             Navigator.push(
@@ -81,7 +83,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
             }),
             // Appelez le popup pour "Contact Us"
             _buildSettingsOption("Contact Us", "", onTap: () {
-              showCustomPopup(context);  // Afficher le popup ici
+              showCustomPopup(context); // Afficher le popup ici
             }),
             const SizedBox(height: 20),
             const Text(
@@ -101,7 +103,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
             }),
             // Appelez le popup pour "Privacy Policy"
             _buildSettingsOption("Privacy Policy", "", onTap: () {
-              showCustomPopup(context);  // Afficher le popup ici aussi
+              showCustomPopup(context); // Afficher le popup ici aussi
             }),
             const SizedBox(height: 20),
             const Text(
@@ -115,6 +117,25 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 onChanged: (bool value) {},
               ),
             ),
+
+            // Bouton de Déconnexion
+            const SizedBox(height: 20),
+            ListTile(
+              title: const Text(
+                "Log Out",
+                style: TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.bold,
+                  color:
+                      Colors.red, // Couleur rouge pour le bouton de déconnexion
+                ),
+              ),
+              leading: const Icon(Icons.logout, color: Colors.red),
+              onTap: () {
+                _showLogoutDialog(
+                    context); // Ouvre la boîte de dialogue de confirmation
+              },
+            ),
           ],
         ),
       ),
@@ -122,6 +143,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
     );
   }
 
+  /// Fonction pour construire chaque option de la liste des paramètres
   Widget _buildSettingsOption(String title, String value,
       {VoidCallback? onTap}) {
     return ListTile(
@@ -136,6 +158,38 @@ class _SettingsScreenState extends State<SettingsScreen> {
         ],
       ),
       onTap: onTap,
+    );
+  }
+
+  /// Fonction pour afficher la boîte de dialogue de confirmation de déconnexion
+  void _showLogoutDialog(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+          title: const Text("Log Out"),
+          content: const Text("Are you sure you want to log out?"),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.pop(context), // Fermer le popup
+              child: const Text("Cancel"),
+            ),
+            TextButton(
+              onPressed: () {
+                Navigator.pop(context); // Fermer le popup
+                Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => const Onboarding4Screen()),
+                ); // Rediriger vers SignUp
+              },
+              child: const Text("Log Out", style: TextStyle(color: Colors.red)),
+            ),
+          ],
+        );
+      },
     );
   }
 }

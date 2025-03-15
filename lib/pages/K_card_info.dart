@@ -89,10 +89,17 @@ class _CardScreenState extends State<CardScreen> {
               Center(
                 child: ElevatedButton(
                   onPressed: () {
-                    Navigator.push(
-  context,
-  MaterialPageRoute(builder: (context) => AddCardScreen()),
-);
+                    Navigator.pop(context, {
+  'cardNumber': cardNumberController.text,
+  'cardHolder': cardHolderController.text,
+  'expiry': expiryController.text,
+  'cvv': cvvController.text,
+  // Vous pouvez ajouter ici d'autres informations, par exemple le chemin du logo
+  'logoAsset': "../assets/mastercard_logo.png",
+  // Si vous voulez gérer un background particulier, ajoutez-le également
+  'backgroundImage': "../assets/background.png",
+});
+
                   },
                   child: Text("Confirmer"),
                   style: ElevatedButton.styleFrom(

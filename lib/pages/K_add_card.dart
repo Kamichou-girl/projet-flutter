@@ -1,9 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/pages/K_card_info.dart';
+import 'package:flutter_application_1/pages/modele/credit_card.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'K_card_info.dart';
-import 'my_cards_screen.dart';
 
-class AddCardScreen extends StatelessWidget {
+class AddCardScreen extends StatefulWidget {
+  @override
+  _AddCardScreenState createState() => _AddCardScreenState();
+}
+
+class _AddCardScreenState extends State<AddCardScreen> {
+  final cardRepo = CardRepository();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -20,10 +27,8 @@ class AddCardScreen extends StatelessWidget {
           child: IconButton(
             icon: Icon(Icons.arrow_back, color: Colors.black),
             onPressed: () {
-              Navigator.push(
-  context,
-  MaterialPageRoute(builder: (context) => MyCardsScreen()),
-);
+              // Si l'utilisateur quitte sans sélectionner, on retourne simplement
+              Navigator.pop(context);
             },
           ),
         ),
@@ -41,28 +46,33 @@ class AddCardScreen extends StatelessWidget {
         padding: EdgeInsets.all(16.0),
         child: Column(
           children: [
-            Stack(
-              children: [                
-                _buildCreditCard(
-                  cardNumber: "4562 1122 4595 7852",
-                  cardHolder: "AR Jonson",
-                  expiry: "24/2000",
-                  cvv: "6986",
-                  logoAsset: "../assets/mastercard_logo.png",
-                  backgroundImage: "../assets/background.png",
-                ),
-              ],
+            // Affichage dynamique de la liste des cartes
+            Expanded(
+              child: ListView.builder(
+                itemCount: cardRepo.cards.length,
+                itemBuilder: (context, index) {
+                  final card = cardRepo.cards[index];
+                  return Padding(
+                    padding: const EdgeInsets.only(bottom: 16.0),
+                    child: InkWell(
+                      onTap: () {
+                        // Mise à jour du repository et retour de la carte sélectionnée
+                        cardRepo.selectCard(card);
+                        Navigator.pop(context, card);
+                      },
+                      child: _buildCreditCard(
+                        cardNumber: card['cardNumber']!,
+                        cardHolder: card['cardHolder']!,
+                        expiry: card['expiry']!,
+                        cvv: card['cvv']!,
+                        logoAsset: card['logoAsset']!,
+                        backgroundImage: card['backgroundImage'],
+                      ),
+                    ),
+                  );
+                },
+              ),
             ),
-            SizedBox(height: 20),
-            _buildCreditCard(
-              cardNumber: "1820 5678 9012 3456",
-              cardHolder: "Smith Jonson",
-              expiry: "24/2000",
-              cvv: "294",
-              logoAsset: "../assets/visa.png",
-              backgroundImage: null,
-            ),
-            Spacer(),
             SizedBox(
               width: double.infinity,
               child: ElevatedButton(
@@ -73,11 +83,17 @@ class AddCardScreen extends StatelessWidget {
                   ),
                   padding: EdgeInsets.symmetric(vertical: 16),
                 ),
-                onPressed: () {
-                  Navigator.push(
-  context,
-  MaterialPageRoute(builder: (context) => CardScreen()),
-);
+                onPressed: () async {
+                  // Ouvre l'écran de saisie pour ajouter une nouvelle carte
+                  final newCard = await Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => CardScreen()),
+                  );
+                  if (newCard != null && newCard is Map<String, String>) {
+                    setState(() {
+                      cardRepo.cards.add(newCard);
+                    });
+                  }
                 },
                 child: Text(
                   "Add Card +",
@@ -154,7 +170,8 @@ class AddCardScreen extends StatelessWidget {
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text("Expiry Date", style: GoogleFonts.poppins(color: Colors.grey, fontSize: 10)),
+                    Text("Expiry Date",
+                        style: GoogleFonts.poppins(color: Colors.grey, fontSize: 10)),
                     SizedBox(height: 2),
                     Text(expiry, style: GoogleFonts.poppins(color: Colors.white, fontSize: 12)),
                   ],
