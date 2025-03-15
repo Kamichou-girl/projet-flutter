@@ -31,6 +31,7 @@ class _LanguageSelectionScreenState extends State<LanguageSelectionScreen> {
         lang.name.toLowerCase().contains(_searchQuery.toLowerCase())).toList();
 
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: AppBar(
         backgroundColor: Colors.white,
         elevation: 0,

@@ -10,8 +10,7 @@ class ChangePasswordScreen extends StatefulWidget {
 
 class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
   // Contrôleurs pour récupérer ou manipuler le texte si nécessaire
-  final TextEditingController _currentPasswordController =
-      TextEditingController();
+ 
   final TextEditingController _newPasswordController = TextEditingController();
   final TextEditingController _confirmPasswordController =
       TextEditingController();
@@ -22,6 +21,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       // --- AppBar ---
       appBar: AppBar(
         backgroundColor: Colors.white,
@@ -46,11 +46,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
         child: Column(
           children: [
             // --- 1) Current Password ---
-            _buildLabelField(
-              labelText: 'Current Password',
-              controller: _currentPasswordController,
-              isObscure: true,
-            ),
+          
 
             // --- 2) New Password (avec icône œil) ---
             _buildLabelField(
@@ -113,15 +109,6 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                     color: Colors.white,
                   ),
                 ),
-              ),
-            ),
-            TextButton(
-              onPressed: () {
-                
-              },
-              child: const Text(
-                "Change Currency?",
-                style: TextStyle(color: Colors.red, fontSize: 14),
               ),
             ),
           ],

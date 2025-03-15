@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'K_add_card.dart';
 
 class CardScreen extends StatefulWidget {
   @override
@@ -21,8 +22,6 @@ class _CardScreenState extends State<CardScreen> {
   @override
   void initState() {
     super.initState();
-
-    // Ajout des listeners pour gérer le focus
     cardNumberFocus.addListener(() => _handleFocus(cardNumberFocus, cardNumberController, "1234 5678 9012 3456"));
     cardHolderFocus.addListener(() => _handleFocus(cardHolderFocus, cardHolderController, "John Doe"));
     expiryFocus.addListener(() => _handleFocus(expiryFocus, expiryController, "08/2026"));
@@ -31,7 +30,6 @@ class _CardScreenState extends State<CardScreen> {
 
   @override
   void dispose() {
-    // Nettoyage des FocusNodes pour éviter les fuites de mémoire
     cardNumberFocus.dispose();
     cardHolderFocus.dispose();
     expiryFocus.dispose();
@@ -39,7 +37,6 @@ class _CardScreenState extends State<CardScreen> {
     super.dispose();
   }
 
-  // Fonction qui gère le focus : vide/remplit les champs
   void _handleFocus(FocusNode focusNode, TextEditingController controller, String defaultValue) {
     if (focusNode.hasFocus) {
       if (controller.text == defaultValue) {
@@ -79,15 +76,37 @@ class _CardScreenState extends State<CardScreen> {
         ),
         centerTitle: true,
       ),
-      body: Padding(
-        padding: EdgeInsets.all(16.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            _buildCreditCard(),
-            SizedBox(height: 20),
-            _buildCardDetails(),
-          ],
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: EdgeInsets.all(16.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              _buildCreditCard(),
+              SizedBox(height: 20),
+              _buildCardDetails(),
+              SizedBox(height: 20),
+              Center(
+                child: ElevatedButton(
+                  onPressed: () {
+                    Navigator.push(
+  context,
+  MaterialPageRoute(builder: (context) => AddCardScreen()),
+);
+                  },
+                  child: Text("Confirmer"),
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.blue, 
+                    foregroundColor: Colors.white,
+                    padding: EdgeInsets.symmetric(horizontal: 40, vertical: 15),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );

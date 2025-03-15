@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/pages/home_screen.dart';
 
 class Onboarding5Screen extends StatelessWidget {
   const Onboarding5Screen({super.key});
@@ -56,7 +57,12 @@ class Onboarding5Screen extends StatelessWidget {
               SizedBox(
                 width: double.infinity,
                 child: ElevatedButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.push(
+  context,
+  MaterialPageRoute(builder: (context) => HomeScreen()),
+);
+                  },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.blue,
                     padding: const EdgeInsets.symmetric(vertical: 16),
