@@ -62,7 +62,9 @@ class Onboarding4Title extends StatelessWidget {
 
 /// Widget pour le champ de saisie de l'email
 class Onboarding4EmailInput extends StatelessWidget {
-  const Onboarding4EmailInput({super.key,});
+  const Onboarding4EmailInput({
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -83,7 +85,9 @@ class Onboarding4EmailInput extends StatelessWidget {
 
 /// Widget pour le champ de saisie du mot de passe
 class Onboarding4PasswordInput extends StatelessWidget {
-  const Onboarding4PasswordInput({super.key,});
+  const Onboarding4PasswordInput({
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -105,7 +109,9 @@ class Onboarding4PasswordInput extends StatelessWidget {
 
 /// Widget pour le bouton de connexion
 class Onboarding4SignInButton extends StatelessWidget {
-  const Onboarding4SignInButton({super.key,});
+  const Onboarding4SignInButton({
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -115,9 +121,9 @@ class Onboarding4SignInButton extends StatelessWidget {
         onPressed: () {
           Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => const Onboarding5Screen ()),
+            MaterialPageRoute(builder: (context) => const HomeScreen()),
           );
-          // 
+          //
         },
         style: ElevatedButton.styleFrom(
           backgroundColor: const Color(0xFF0D6CFF), // Couleur bleue du bouton
@@ -137,17 +143,19 @@ class Onboarding4SignInButton extends StatelessWidget {
 
 /// Widget pour le lien des nouveaux utilisateurs
 class Onboarding4NewUserLink extends StatelessWidget {
-  const Onboarding4NewUserLink({super.key,});
+  const Onboarding4NewUserLink({
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
     return TextButton(
       onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => const HomeScreen()),
-                );
-              },
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => const Onboarding5Screen()),
+        );
+      },
       child: const Text(
         "I'm a new user. Sign In",
         style: TextStyle(color: Colors.white70),

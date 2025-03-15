@@ -1,10 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/pages/change_password.dart';
+import 'package:flutter_application_1/pages/langue.dart'; // Chemin vers LanguageSelectionScreen
+// Assure-toi que ChangePasswordScreen est défini ici
 import '../widgets/bottom_nav_bar.dart';
 import 'home_screen.dart';
 import 'profile_screen.dart';
 
-class SettingsScreen extends StatelessWidget {
+class SettingsScreen extends StatefulWidget {
   const SettingsScreen({super.key});
+
+  @override
+  _SettingsScreenState createState() => _SettingsScreenState();
+}
+
+class _SettingsScreenState extends State<SettingsScreen> {
+  String _selectedLanguage = "English"; // Langue par défaut
 
   @override
   Widget build(BuildContext context) {
@@ -14,16 +24,23 @@ class SettingsScreen extends StatelessWidget {
         backgroundColor: Colors.white,
         elevation: 0,
         leading: IconButton(
-          icon: Icon(Icons.arrow_back, color: Colors.black),
-          onPressed: (){Navigator.push(
-  context,
-  MaterialPageRoute(builder: (context) => HomeScreen()),
-);}
+          // Retour vers HomeScreen, selon ton code de base
+          icon: const Icon(Icons.arrow_back, color: Colors.black),
+          onPressed: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => const HomeScreen()),
+            );
+          },
         ),
-        title: Text("Settings", style: TextStyle(color: Colors.black, fontSize: 18, fontWeight: FontWeight.bold)),
+        title: const Text(
+          "Settings",
+          style: TextStyle(
+              color: Colors.black, fontSize: 18, fontWeight: FontWeight.bold),
+        ),
         actions: [
           IconButton(
-            icon: Icon(Icons.qr_code_scanner, color: Colors.black),
+            icon: const Icon(Icons.qr_code_scanner, color: Colors.black),
             onPressed: () {
               // Action pour scanner un QR code
             },
@@ -35,44 +52,92 @@ class SettingsScreen extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text("General", style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Colors.grey)),
-            _buildSettingsOption("Language", "English"),
+            const Text(
+              "General",
+              style: TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.grey),
+            ),
+            // Option Language
+            _buildSettingsOption(
+              "Language",
+              _selectedLanguage,
+              onTap: () async {
+                final selectedLang = await Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => LanguageSelectionScreen(
+                      onLanguageSelected: (language) {
+                        Navigator.pop(context, language.name);
+                      },
+                    ),
+                  ),
+                );
+                if (selectedLang != null) {
+                  setState(() {
+                    _selectedLanguage = selectedLang;
+                  });
+                }
+              },
+            ),
             _buildSettingsOption("My Profile", "", onTap: () {
-  Navigator.push(
-    context,
-    MaterialPageRoute(builder: (context) => ProfileScreen()),
-  );
-}),
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => const ProfileScreen()),
+              );
+            }),
             _buildSettingsOption("Contact Us", ""),
-            SizedBox(height: 20),
-            Text("Security", style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Colors.grey)),
-            _buildSettingsOption("Change Password", ""),
+            const SizedBox(height: 20),
+            const Text(
+              "Security",
+              style: TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.grey),
+            ),
+            // Ici, on ajoute la navigation vers ChangePasswordScreen
+            _buildSettingsOption("Change Password", "", onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => const ChangePasswordScreen()),
+              );
+            }),
             _buildSettingsOption("Privacy Policy", ""),
-            SizedBox(height: 20),
-            Text("Choose what data you share with us", style: TextStyle(color: Colors.grey, fontSize: 12)),
+            const SizedBox(height: 20),
+            const Text(
+              "Choose what data you share with us",
+              style: TextStyle(color: Colors.grey, fontSize: 12),
+            ),
             ListTile(
-              title: Text("Biometric"),
-              trailing: Switch(value: false, onChanged: (bool value) {}),
+              title: const Text("Biometric"),
+              trailing: Switch(
+                value: false,
+                onChanged: (bool value) {},
+              ),
             ),
           ],
         ),
       ),
-      bottomNavigationBar: BottomNavBar(selectedIndex: 3), // Sélectionne l'onglet "Settings"
+      bottomNavigationBar: const BottomNavBar(selectedIndex: 3),
     );
   }
 
-  Widget _buildSettingsOption(String title, String value, {VoidCallback? onTap}) {
-  return ListTile(
-    title: Text(title, style: TextStyle(fontSize: 16)),
-    trailing: Row(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        if (value.isNotEmpty) Text(value, style: TextStyle(color: Colors.grey, fontSize: 14)),
-        Icon(Icons.arrow_forward_ios, size: 16, color: Colors.grey),
-      ],
-    ),
-    onTap: onTap, // Ajout de l'action onTap
-  );
-}
-
+  Widget _buildSettingsOption(String title, String value,
+      {VoidCallback? onTap}) {
+    return ListTile(
+      title: Text(title, style: const TextStyle(fontSize: 16)),
+      trailing: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          if (value.isNotEmpty)
+            Text(value,
+                style: const TextStyle(color: Colors.grey, fontSize: 14)),
+          const Icon(Icons.arrow_forward_ios, size: 16, color: Colors.grey),
+        ],
+      ),
+      onTap: onTap,
+    );
+  }
 }
