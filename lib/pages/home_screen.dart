@@ -4,9 +4,25 @@ import '../widgets/action_buttons.dart';
 import '../widgets/transaction_list.dart';
 import '../widgets/bottom_nav_bar.dart';
 import 'K_search_debts.dart';
+import 'receive_money.dart'; // Import de ReceiveMoneyScreen
 
-class HomeScreen extends StatelessWidget {
-  const HomeScreen({super.key});
+class HomeScreen extends StatefulWidget {
+  @override
+  _HomeScreenState createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  double balance = 500.00; // Exemple de solde initial
+
+  void updateBalance(double amount, bool isReceiving) {
+    setState(() {
+      if (isReceiving) {
+        balance += amount;
+      } else {
+        balance -= amount;
+      }
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -28,9 +44,9 @@ class HomeScreen extends StatelessWidget {
             icon: Icon(Icons.search, color: Colors.black),
             onPressed: () {
               Navigator.push(
-  context,
-  MaterialPageRoute(builder: (context) => SearchScreen()),
-);
+                context,
+                MaterialPageRoute(builder: (context) => SearchScreen()),
+              );
             },
           ),
         ],
@@ -46,16 +62,26 @@ class HomeScreen extends StatelessWidget {
               expiry: "08/2026",
               cvv: "123",
               logoAsset: "https://upload.wikimedia.org/wikipedia/commons/0/04/Mastercard-logo.png",
+              balance: balance, // Ajout du solde
             ),
             SizedBox(height: 20),
-            ActionButtons(),
+            ActionButtons(updateBalance: updateBalance),
             SizedBox(height: 20),
             Text("Transaction", style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
             Expanded(child: TransactionList()),
           ],
         ),
       ),
-      bottomNavigationBar: BottomNavBar(selectedIndex: 0,),
+      bottomNavigationBar: BottomNavBar(selectedIndex: 0),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () => Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => ReceiveMoneyScreen(updateBalance: updateBalance),
+          ),
+        ),
+        child: Icon(Icons.add), // Bouton pour accéder à ReceiveMoneyScreen
+      ),
     );
   }
 }

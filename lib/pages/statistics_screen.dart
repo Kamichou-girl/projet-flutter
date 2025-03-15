@@ -12,14 +12,12 @@ class StatisticsScreen extends StatelessWidget {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         elevation: 0,
         backgroundColor: Colors.white,
         title: Text('Statistics', style: TextStyle(color: Colors.black, fontSize: 20, fontWeight: FontWeight.bold)),
         centerTitle: true,
-        leading: IconButton(
-          icon: Icon(Icons.arrow_back, color: Colors.black),
-          onPressed: () => Navigator.pushReplacementNamed(context, '/welcom'),
-        ),
+        
         actions: [
           IconButton(
             icon: Icon(Icons.notifications, color: Colors.black),

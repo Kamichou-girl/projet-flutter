@@ -1,8 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/pages/send_money_screenbk.dart';
+import '../widgets/popup.dart';
+import '../pages/receive_money.dart';
 
 class ActionButtons extends StatelessWidget {
-  const ActionButtons({super.key});
+
+ final Function(double, bool) updateBalance; // Ajout de updateBalance
+
+  const ActionButtons({super.key, required this.updateBalance});
+
 
   @override
   Widget build(BuildContext context) {
@@ -15,7 +21,7 @@ class ActionButtons extends StatelessWidget {
           onPressed: () {
             Navigator.push(
               context,
-              MaterialPageRoute(builder: (context) => const SendMoneyScreen()),
+              MaterialPageRoute(builder: (context) =>  SendMoneyScreen(updateBalance: updateBalance)),
             );
           },
         ),
@@ -23,21 +29,24 @@ class ActionButtons extends StatelessWidget {
           icon: Icons.arrow_downward,
           label: "Receive",
           onPressed: () {
-            print('Bouton Receive appuyé');
+            Navigator.push(
+  context,
+  MaterialPageRoute(builder: (context) => ReceiveMoneyScreen(updateBalance: updateBalance)),
+);
           },
         ),
         ActionButton(
-          icon: Icons.monetization_on,
-          label: "Loan",
-          onPressed: () {
-            print('Bouton Loan appuyé');
-          },
-        ),
+  icon: Icons.monetization_on,
+  label: "Loan",
+  onPressed: () {
+    showCustomPopup(context);
+  },
+),
         ActionButton(
           icon: Icons.cloud_upload,
           label: "Topup",
           onPressed: () {
-            print('Bouton Topup appuyé');
+                showCustomPopup(context);
           },
         ),
       ],

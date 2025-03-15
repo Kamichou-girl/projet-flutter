@@ -13,12 +13,8 @@ class MyCardsScreen extends StatelessWidget {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         backgroundColor: Colors.white,
-        elevation: 0,
-        leading: IconButton(
-          icon: Icon(Icons.arrow_back, color: Colors.black),
-          onPressed: () => Navigator.pushReplacementNamed(context, '/welcom'),
-        ),
         title: Text("My Cards", style: TextStyle(color: Colors.black, fontSize: 18, fontWeight: FontWeight.bold)),
         actions: [
           IconButton(
@@ -44,6 +40,8 @@ class MyCardsScreen extends StatelessWidget {
               expiry: "24/2000",
               cvv: "6986",
               logoAsset: "https://upload.wikimedia.org/wikipedia/commons/0/04/Mastercard-logo.png",
+              balance: 0.0,
+
             ),
             SizedBox(height: 20),
             Text("Transactions", style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),

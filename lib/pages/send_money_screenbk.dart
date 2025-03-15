@@ -3,11 +3,13 @@ import 'package:flutter_application_1/pages/add_personbk.dart';
 // si nécessaire pour RequestMoneyScreen
 
 class SendMoneyScreen extends StatefulWidget {
-  const SendMoneyScreen({Key? key}) : super(key: key);
+  final Function(double, bool) updateBalance; // Ajout de updateBalance
+
+  const SendMoneyScreen({Key? key, required this.updateBalance}) : super(key: key);
 
   @override
   _SendMoneyScreenState createState() => _SendMoneyScreenState();
-}
+  }
 
 class _SendMoneyScreenState extends State<SendMoneyScreen> {
   final PageController _pageController = PageController(viewportFraction: 0.9);
@@ -24,8 +26,22 @@ class _SendMoneyScreenState extends State<SendMoneyScreen> {
         leading: IconButton(
           icon: const Icon(Icons.arrow_back_ios, color: Colors.black),
           onPressed: () {
-            Navigator.pop(context);
-          },
+  double amount = double.tryParse(_amountController.text) ?? 0.0;
+  
+  if (amount <= 0) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(content: Text("Please enter a valid amount")),
+    );
+    return;
+  }
+
+  widget.updateBalance(amount, false); // Met à jour le solde (-amount)
+  Navigator.pop(context); // Retour à l'écran précédent
+  ScaffoldMessenger.of(context).showSnackBar(
+    SnackBar(content: Text("Money sent successfully!")),
+  );
+},
+
         ),
         centerTitle: true,
         title: const Text(

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart'; // Importation de la bibliothèque Google Fonts pour personnaliser les polices
 import 'profile_screen.dart';
+import 'setting_screen.dart';
 
 // Classe principale pour l'édition du profil
 class ProfileEditApp extends StatelessWidget {
@@ -23,13 +24,11 @@ class EditProfileScreen extends StatefulWidget {
 }
 
 class _EditProfileScreenState extends State<EditProfileScreen> {
-  // Déclaration des contrôleurs pour les champs de texte
   late TextEditingController nameController;
   late TextEditingController emailController;
   late TextEditingController phoneController;
   late TextEditingController birthDateController;
-
-  // Déclaration des FocusNodes pour gérer la mise au point des champs
+  
   late FocusNode nameFocus;
   late FocusNode emailFocus;
   late FocusNode phoneFocus;
@@ -38,43 +37,37 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
   @override
   void initState() {
     super.initState();
-
-    // Initialisation des contrôleurs avec des valeurs par défaut
     nameController = TextEditingController(text: "Tanya Myroniuk");
     emailController = TextEditingController(text: "tanya.myroniuk@gmail.com");
     phoneController = TextEditingController(text: "+225 0102030405");
     birthDateController = TextEditingController(text: "28 September 2000");
-
-    // Initialisation des FocusNodes
+    
     nameFocus = FocusNode();
     emailFocus = FocusNode();
     phoneFocus = FocusNode();
     birthDateFocus = FocusNode();
-
-    // Ajout d'écouteurs aux FocusNodes pour gérer le comportement des champs
+    
     nameFocus.addListener(() => _handleFocus(nameFocus, nameController, "Tanya Myroniuk"));
     emailFocus.addListener(() => _handleFocus(emailFocus, emailController, "tanya.myroniuk@gmail.com"));
     phoneFocus.addListener(() => _handleFocus(phoneFocus, phoneController, "+225 0102030405"));
     birthDateFocus.addListener(() => _handleFocus(birthDateFocus, birthDateController, "28 September 2000"));
   }
 
-  // Fonction pour gérer la mise au point des champs
   void _handleFocus(FocusNode focusNode, TextEditingController controller, String defaultValue) {
     if (focusNode.hasFocus) {
       if (controller.text == defaultValue) {
-        controller.clear(); // Efface le champ lorsqu'il est sélectionné
+        controller.clear();
       }
     } else {
       if (controller.text.isEmpty) {
-        controller.text = defaultValue; // Réinsère la valeur par défaut si le champ est vide
+        controller.text = defaultValue;
       }
     }
-    setState(() {}); // Rafraîchit l'affichage
+    setState(() {});
   }
 
   @override
   void dispose() {
-    // Nettoyage des contrôleurs et FocusNodes pour éviter les fuites de mémoire
     nameController.dispose();
     emailController.dispose();
     phoneController.dispose();
@@ -89,29 +82,22 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white, // Fond blanc pour l'écran
+      backgroundColor: Colors.white,
       appBar: AppBar(
         backgroundColor: Colors.white,
-        elevation: 0, // Supprime l'ombre de l'AppBar
-        leading: Container(
-          margin: EdgeInsets.all(8),
-          decoration: BoxDecoration(
-            color: Colors.grey[200], // Fond gris clair pour le bouton retour
-            shape: BoxShape.circle,
-          ),
-          child: IconButton(
-            icon: Icon(Icons.arrow_back, color: Colors.black), // Icône retour
-            onPressed: () {
-              Navigator.push(
-  context,
-  MaterialPageRoute(builder: (context) => ProfileScreen()),
-);
-            },
-          ),
+        elevation: 0,
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back, color: Colors.black),
+          onPressed: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => ProfileScreen()),
+            );
+          },
         ),
       ),
       body: SingleChildScrollView(
-        padding: EdgeInsets.all(16.0), // Ajoute du padding autour du contenu
+        padding: EdgeInsets.all(16.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -120,7 +106,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                 children: [
                   CircleAvatar(
                     radius: 50,
-                    backgroundImage: AssetImage('../assets/toji.png'), // Image de profil
+                    backgroundImage: AssetImage('../assets/toji.png'),
                   ),
                   SizedBox(height: 10),
                   Text(
@@ -141,17 +127,34 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                 ],
               ),
             ),
-            // Champs d'édition du profil
             buildProfileField(Icons.person_outline, "Full Name", nameController, nameFocus, "Tanya Myroniuk"),
             buildProfileField(Icons.email_outlined, "Email Address", emailController, emailFocus, "tanya.myroniuk@gmail.com"),
             buildProfileField(Icons.phone_outlined, "Phone Number", phoneController, phoneFocus, "+225 0102030405"),
             buildProfileField(Icons.calendar_today_outlined, "Birth Date", birthDateController, birthDateFocus, "28 September 2000"),
             SizedBox(height: 20),
-            // Date d'inscription affichée en bas de l'écran
             Center(
               child: Text(
                 "Joined 28 Jan 2021",
                 style: GoogleFonts.poppins(color: Colors.grey),
+              ),
+            ),
+            SizedBox(height: 20),
+            Center(
+              child: ElevatedButton(
+                
+                onPressed: () {
+                  
+                  Navigator.push(
+  context,
+  MaterialPageRoute(builder: (context) => SettingsScreen()),
+);
+                },
+                child: Text("Enregistrer",style: TextStyle(
+      fontSize: 16,
+      fontWeight: FontWeight.bold,
+      color: Colors.black, // Couleur du texte
+    ),
+    ),
               ),
             ),
           ],
@@ -160,7 +163,6 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
     );
   }
 
-  // Fonction pour générer un champ d'édition avec une icône et un label
   Widget buildProfileField(IconData icon, String label, TextEditingController controller, FocusNode focusNode, String defaultValue) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -175,10 +177,10 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
           focusNode: focusNode,
           style: GoogleFonts.poppins(
             fontSize: 16,
-            color: (controller.text == defaultValue) ? Colors.grey : Colors.black, // Gris si valeur par défaut
+            color: (controller.text == defaultValue) ? Colors.grey : Colors.black,
           ),
           decoration: InputDecoration(
-            prefixIcon: Icon(icon, color: Colors.grey[600]), // Ajoute une icône au début du champ
+            prefixIcon: Icon(icon, color: Colors.grey[600]),
             border: UnderlineInputBorder(
               borderSide: BorderSide(color: Colors.grey),
             ),
@@ -186,9 +188,9 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
               borderSide: BorderSide(color: Colors.grey),
             ),
             focusedBorder: UnderlineInputBorder(
-              borderSide: BorderSide(color: Colors.blue, width: 2), // Bordure bleue lorsque le champ est sélectionné
+              borderSide: BorderSide(color: Colors.blue, width: 2),
             ),
-            contentPadding: EdgeInsets.symmetric(vertical: 10), // Ajuste l'espacement interne du champ
+            contentPadding: EdgeInsets.symmetric(vertical: 10),
           ),
         ),
         SizedBox(height: 15),

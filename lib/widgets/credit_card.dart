@@ -6,6 +6,7 @@ class CreditCardWidget extends StatelessWidget {
   final String expiry;
   final String cvv;
   final String logoAsset;
+  final double balance; // Ajout du solde
 
   const CreditCardWidget({
     super.key,
@@ -14,6 +15,7 @@ class CreditCardWidget extends StatelessWidget {
     required this.expiry,
     required this.cvv,
     required this.logoAsset,
+    required this.balance, // Ajout du paramètre balance
   });
 
   @override
@@ -28,13 +30,14 @@ class CreditCardWidget extends StatelessWidget {
       ),
       child: Stack(
         children: [
+          // Image d'arrière-plan
           Positioned.fill(
             child: Image.asset(
               "assets/image/arrier3.png",
               fit: BoxFit.cover,
-              
             ),
           ),
+          // Cercle en bas à droite
           Positioned(
             bottom: -40,
             right: -40,
@@ -51,7 +54,27 @@ class CreditCardWidget extends StatelessWidget {
             padding: const EdgeInsets.all(16.0),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              crossAxisAlignment: CrossAxisAlignment.start, // Alignement à gauche
               children: [
+                // Solde de la carte
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const Text(
+                      "Balance",
+                      style: TextStyle(color: Colors.white70, fontSize: 12),
+                    ),
+                    Text(
+                      "\$${balance.toStringAsFixed(2)}", // Affichage du solde
+                      style: const TextStyle(
+                        color: Colors.white,
+                        fontSize: 22,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ],
+                ),
+                // Icônes carte et sans contact
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -59,6 +82,7 @@ class CreditCardWidget extends StatelessWidget {
                     Icon(Icons.contactless, color: Colors.white.withOpacity(0.9), size: 28),
                   ],
                 ),
+                // Numéro de carte
                 Text(
                   cardNumber,
                   style: const TextStyle(
@@ -68,6 +92,7 @@ class CreditCardWidget extends StatelessWidget {
                     fontWeight: FontWeight.bold,
                   ),
                 ),
+                // Nom du titulaire
                 Align(
                   alignment: Alignment.centerLeft,
                   child: Text(
@@ -78,6 +103,7 @@ class CreditCardWidget extends StatelessWidget {
                     ),
                   ),
                 ),
+                // Expiry, CVV et logo de la carte
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
