@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'K_edit_profile_screen.dart';
 import 'setting_screen.dart';
+import '../widgets/popup.dart';
 
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({super.key});
@@ -15,10 +16,9 @@ class ProfileScreen extends StatelessWidget {
         leading: IconButton(
           icon: Icon(Icons.arrow_back, color: Colors.black),
           onPressed: () => Navigator.push(
-  context,
-  MaterialPageRoute(builder: (context) => SettingsScreen()),
-),
-
+            context,
+            MaterialPageRoute(builder: (context) => SettingsScreen()),
+          ),
         ),
         title: Text("Profile", style: TextStyle(color: Colors.black, fontSize: 18, fontWeight: FontWeight.bold)),
         actions: [
@@ -26,9 +26,9 @@ class ProfileScreen extends StatelessWidget {
             icon: Icon(Icons.person_outline, color: Colors.black),
             onPressed: () {
               Navigator.push(
-  context,
-  MaterialPageRoute(builder: (context) => ProfileEditApp()),
-);
+                context,
+                MaterialPageRoute(builder: (context) => ProfileEditApp()),
+              );
             },
           ),
         ],
@@ -52,20 +52,28 @@ class ProfileScreen extends StatelessWidget {
               ),
             ),
             SizedBox(height: 20),
-            _buildProfileOption(Icons.person, "Personal Information"),
-            _buildProfileOption(Icons.payment, "Payment Preferences"),
-            _buildProfileOption(Icons.credit_card, "Banks and Cards"),
-            _buildProfileOption(Icons.notifications, "Notifications", badge: 2),
-            _buildProfileOption(Icons.message, "Message Center"),
-            _buildProfileOption(Icons.location_on, "Address"),
-            _buildProfileOption(Icons.settings, "Settings"),
+            _buildProfileOption(Icons.person, "Personal Information", onTap: () {
+              showCustomPopup(context); // Afficher le popup pour "Personal Information"
+            }),
+            _buildProfileOption(Icons.payment, "Payment Preferences", onTap: () {
+              showCustomPopup(context); // Afficher le popup pour "Payment Preferences"
+            }),
+            _buildProfileOption(Icons.credit_card, "Cards", onTap: () {
+              showCustomPopup(context); // Afficher le popup pour "Cards"
+            }),
+            _buildProfileOption(Icons.notifications, "Notifications", badge: 2, onTap: () {
+              showCustomPopup(context); // Afficher le popup pour "Notifications"
+            }),
+            _buildProfileOption(Icons.message, "Message Center", onTap: () {
+              showCustomPopup(context); // Afficher le popup pour "Message Center"
+            }),
           ],
         ),
       ),
     );
   }
 
-  Widget _buildProfileOption(IconData icon, String title, {int? badge}) {
+  Widget _buildProfileOption(IconData icon, String title, {int? badge, VoidCallback? onTap}) {
     return ListTile(
       leading: Icon(icon, color: Colors.grey[700]),
       title: Text(title, style: TextStyle(fontSize: 16)),
@@ -85,9 +93,7 @@ class ProfileScreen extends StatelessWidget {
           Icon(Icons.arrow_forward_ios, size: 16, color: Colors.grey),
         ],
       ),
-      onTap: () {
-        // Action à définir si nécessaire
-      },
+      onTap: onTap, // Appel du callback onTap pour chaque option
     );
   }
 }

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'K_card_info.dart';
+import 'my_cards_screen.dart';
 
 class AddCardScreen extends StatelessWidget {
   @override
@@ -19,12 +20,15 @@ class AddCardScreen extends StatelessWidget {
           child: IconButton(
             icon: Icon(Icons.arrow_back, color: Colors.black),
             onPressed: () {
-              Navigator.pop(context);
+              Navigator.push(
+  context,
+  MaterialPageRoute(builder: (context) => MyCardsScreen()),
+);
             },
           ),
         ),
         title: Text(
-          "Add Cards",
+          "All Cards",
           style: GoogleFonts.poppins(
             fontSize: 20,
             color: Colors.black,

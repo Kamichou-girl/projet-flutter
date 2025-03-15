@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/pages/change_password.dart';
 import 'package:flutter_application_1/pages/langue.dart'; // Chemin vers LanguageSelectionScreen
-// Assure-toi que ChangePasswordScreen est défini ici
 import '../widgets/bottom_nav_bar.dart';
 import 'home_screen.dart';
 import 'profile_screen.dart';
+import '../widgets/popup.dart';  // Importez le fichier popup.dart
 
 class SettingsScreen extends StatefulWidget {
   const SettingsScreen({super.key});
@@ -38,14 +38,6 @@ class _SettingsScreenState extends State<SettingsScreen> {
           style: TextStyle(
               color: Colors.black, fontSize: 18, fontWeight: FontWeight.bold),
         ),
-        actions: [
-          IconButton(
-            icon: const Icon(Icons.qr_code_scanner, color: Colors.black),
-            onPressed: () {
-              // Action pour scanner un QR code
-            },
-          ),
-        ],
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -87,7 +79,10 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 MaterialPageRoute(builder: (context) => const ProfileScreen()),
               );
             }),
-            _buildSettingsOption("Contact Us", ""),
+            // Appelez le popup pour "Contact Us"
+            _buildSettingsOption("Contact Us", "", onTap: () {
+              showCustomPopup(context);  // Afficher le popup ici
+            }),
             const SizedBox(height: 20),
             const Text(
               "Security",
@@ -96,7 +91,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   fontWeight: FontWeight.bold,
                   color: Colors.grey),
             ),
-            // Ici, on ajoute la navigation vers ChangePasswordScreen
+            // Change Password
             _buildSettingsOption("Change Password", "", onTap: () {
               Navigator.push(
                 context,
@@ -104,7 +99,10 @@ class _SettingsScreenState extends State<SettingsScreen> {
                     builder: (context) => const ChangePasswordScreen()),
               );
             }),
-            _buildSettingsOption("Privacy Policy", ""),
+            // Appelez le popup pour "Privacy Policy"
+            _buildSettingsOption("Privacy Policy", "", onTap: () {
+              showCustomPopup(context);  // Afficher le popup ici aussi
+            }),
             const SizedBox(height: 20),
             const Text(
               "Choose what data you share with us",

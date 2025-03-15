@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/pages/add_personbk.dart';
-import 'package:flutter_application_1/pages/requestMoneyScreenBK.dart';
 // si nécessaire pour RequestMoneyScreen
 
 class SendMoneyScreen extends StatefulWidget {
