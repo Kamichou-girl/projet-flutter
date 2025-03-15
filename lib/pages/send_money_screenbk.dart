@@ -12,8 +12,48 @@ class SendMoneyScreen extends StatefulWidget {
 
 class _SendMoneyScreenState extends State<SendMoneyScreen> {
   final PageController _pageController = PageController(viewportFraction: 0.9);
+  String _selectedCurrency = "USD"; // Devise sélectionnée par défaut
+
   final TextEditingController _amountController =
       TextEditingController(text: "36.00");
+        void _showCurrencyDialog() {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+          title: const Text(
+            "Choose Currency",
+            style: TextStyle(fontWeight: FontWeight.bold),
+          ),
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              _buildCurrencyOption("USD", "Dollar"),
+              _buildCurrencyOption("EUR", "Euro"),
+              _buildCurrencyOption("FCFA", "Franc CFA"),
+            ],
+          ),
+        );
+      },
+    );
+
+  }
+    // Widget pour chaque option de devise
+  Widget _buildCurrencyOption(String currency, String currencyName) {
+    return ListTile(
+      title: Text(currencyName),
+      trailing: _selectedCurrency == currency
+          ? const Icon(Icons.check, color: Colors.blue)
+          : null,
+      onTap: () {
+        setState(() {
+          _selectedCurrency = currency; // Mise à jour de la devise sélectionnée
+        });
+        Navigator.pop(context); // Fermer la boîte de dialogue
+      },
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -131,7 +171,7 @@ class _SendMoneyScreenState extends State<SendMoneyScreen> {
                                   context,
                                   MaterialPageRoute(
                                       builder: (context) =>
-                                          const AddPersonForm()),
+                                          const AddPersonbk()),
                                 );
                               },
                             ),
